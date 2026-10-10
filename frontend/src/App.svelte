@@ -260,12 +260,12 @@
   // FAQ Items (Strict anti-slop, clear factual explanations)
   const FAQ_ITEMS = [
     {
-      q: 'Apa itu CivitasID dan apa tujuannya?',
-      a: 'CivitasID adalah platform utilitas kecerdasan data akademik terbuka (open academic intelligence) dan generator dokumen digital independen. CivitasID mengintegrasikan pangkalan data pendidikan tinggi Kemdiktisaintek RI dengan sumber-sumber ilmiah publik untuk mempermudah verifikasi keaktifan akademik, penelusuran rekam jejak riset, dan pembuatan berkas administratif standar seperti SKMA Bilingual, SKMA Standar Indonesia, KTM Digital CR80, dan Transkrip Sementara.'
+      q: 'Apa itu EduPass Generator dan apa tujuannya?',
+      a: 'EduPass Generator adalah platform utilitas kecerdasan data akademik terbuka (open academic intelligence) dan generator dokumen digital independen. EduPass Generator mengintegrasikan pangkalan data pendidikan tinggi Kemdiktisaintek RI dengan sumber-sumber ilmiah publik untuk mempermudah verifikasi keaktifan akademik, penelusuran rekam jejak riset, dan pembuatan berkas administratif standar seperti SKMA Bilingual, SKMA Standar Indonesia, KTM Digital CR80, dan Transkrip Sementara.'
     },
     {
-      q: 'Sumber data apa saja yang digunakan oleh CivitasID?',
-      a: 'CivitasID menggabungkan 7 ekosistem data publik resmi: 1) PDDIKTI Kemdiktisaintek (data induk mahasiswa, dosen, kampus, dan kurikulum), 2) SINTA Kemdiktisaintek (profil riset dosen, foto author, SINTA Score, dan Scopus H-Index), 3) Google Scholar (indeks sitasi dan karya ilmiah internasional), 4) Wikipedia Indonesia & Wikidata (nama pimpinan statuta, jenis institusi, dan sejarah), 5) Situs Web Resmi Kampus (saluran media sosial resmi dan email institusi), 6) RAMA Kemdiktisaintek (repositori nasional skripsi dan tugas akhir mahasiswa), dan 7) SIVIL Kemdiktisaintek (sistem verifikasi ijazah elektronik nasional).'
+      q: 'Sumber data apa saja yang digunakan oleh EduPass Generator?',
+      a: 'EduPass Generator menggabungkan 7 ekosistem data publik resmi: 1) PDDIKTI Kemdiktisaintek (data induk mahasiswa, dosen, kampus, dan kurikulum), 2) SINTA Kemdiktisaintek (profil riset dosen, foto author, SINTA Score, dan Scopus H-Index), 3) Google Scholar (indeks sitasi dan karya ilmiah internasional), 4) Wikipedia Indonesia & Wikidata (nama pimpinan statuta, jenis institusi, dan sejarah), 5) Situs Web Resmi Kampus (saluran media sosial resmi dan email institusi), 6) RAMA Kemdiktisaintek (repositori nasional skripsi dan tugas akhir mahasiswa), dan 7) SIVIL Kemdiktisaintek (sistem verifikasi ijazah elektronik nasional).'
     },
     {
       q: 'Data apa saja yang diambil dan ditampilkan untuk setiap entitas?',
@@ -273,23 +273,23 @@
     },
     {
       q: 'Mengapa nomor telepon dan email pribadi mahasiswa tidak ditampilkan?',
-      a: 'Sesuai UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP), nomor telepon seluler dan email pribadi mahasiswa tergolong sebagai data pribadi yang tidak dipublikasikan secara terbuka oleh PDDIKTI maupun CivitasID guna mencegah risiko penipuan, pinjol ilegal, dan kebocoran kontak pribadi.'
+      a: 'Sesuai UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP), nomor telepon seluler dan email pribadi mahasiswa tergolong sebagai data pribadi yang tidak dipublikasikan secara terbuka oleh PDDIKTI maupun EduPass Generator guna mencegah risiko penipuan, pinjol ilegal, dan kebocoran kontak pribadi.'
     },
     {
       q: 'Bagaimana foto dosen dan foto mahasiswa diperoleh?',
-      a: '• Dosen: Foto profil dosen disinkronkan secara otomatis dari foto author yang terindeks secara publik pada pangkalan data SINTA Kemdiktisaintek atau profil Google Scholar resmi dosen bersangkutan.\n• Mahasiswa: PDDIKTI tidak merilis foto mahasiswa ke publik demi mematuhi UU PDP. Namun, CivitasID menyediakan fitur Pas Foto Uploader di browser pengguna, sehingga mahasiswa dapat menyematkan pas foto formal mereka secara lokal ke dalam KTM Digital dan SKMA tanpa data foto dikirim atau disimpan permanen ke server.'
+      a: '• Dosen: Foto profil dosen disinkronkan secara otomatis dari foto author yang terindeks secara publik pada pangkalan data SINTA Kemdiktisaintek atau profil Google Scholar resmi dosen bersangkutan.\n• Mahasiswa: PDDIKTI tidak merilis foto mahasiswa ke publik demi mematuhi UU PDP. Namun, EduPass Generator menyediakan fitur Pas Foto Uploader di browser pengguna, sehingga mahasiswa dapat menyematkan pas foto formal mereka secara lokal ke dalam KTM Digital dan SKMA tanpa data foto dikirim atau disimpan permanen ke server.'
     },
     {
       q: 'Bagaimana nama rektor atau pimpinan kampus bisa terdata?',
-      a: 'CivitasID melakukan cross-referencing otomatis antara profil perguruan tinggi di PDDIKTI dengan infobox ensiklopedia Wikipedia Bahasa Indonesia dan basis data Wikidata yang bersumber dari dokumen statuta pendirian perguruan tinggi serta direktori pimpinan LLDIKTI Kemdiktisaintek RI.'
+      a: 'EduPass Generator melakukan cross-referencing otomatis antara profil perguruan tinggi di PDDIKTI dengan infobox ensiklopedia Wikipedia Bahasa Indonesia dan basis data Wikidata yang bersumber dari dokumen statuta pendirian perguruan tinggi serta direktori pimpinan LLDIKTI Kemdiktisaintek RI.'
     },
     {
       q: 'Bagaimana kop surat, nama dekan, dan stempel dibuat secara dinamis?',
       a: 'Sistem membaca data perguruan tinggi dari profil PDDIKTI yang dicari. Mesin perender dinamis (university_resolver) memetakan akronim kampus, fakultas yang menaungi program studi, dan kota domisili kampus secara otomatis. Stempel kurva vektor SVG (<textPath>) dan lambang heraldik resmi kampus dirangkai secara prosedural tanpa template hardcoded satu kampus.'
     },
     {
-      q: 'Apakah CivitasID menyimpan data pribadi di database server?',
-      a: 'Tidak (Zero-Storage Policy). CivitasID tidak menyimpan data pribadi, NIM, nama mahasiswa, maupun dokumen unduhan ke dalam basis data permanen. Seluruh data hanya diproses secara transitif dalam memori server untuk render dokumen PDF/PNG dan disimpan sementara di cache memori (TTL 24 jam) guna efisiensi bandwidth upstream.'
+      q: 'Apakah EduPass Generator menyimpan data pribadi di database server?',
+      a: 'Tidak (Zero-Storage Policy). EduPass Generator tidak menyimpan data pribadi, NIM, nama mahasiswa, maupun dokumen unduhan ke dalam basis data permanen. Seluruh data hanya diproses secara transitif dalam memori server untuk render dokumen PDF/PNG dan disimpan sementara di cache memori (TTL 24 jam) guna efisiensi bandwidth upstream.'
     },
     {
       q: 'Apakah dokumen yang dihasilkan memiliki validitas verifikasi?',
@@ -301,7 +301,7 @@
     },
     {
       q: 'Apakah proyek ini Open Source?',
-      a: 'Ya. CivitasID dilisensikan di bawah lisensi terbuka MIT. Kode sumber backend (Python/FastAPI/Playwright) dan frontend (Svelte 5/Vite/Tailwind v4) bebas diaudit, dikloning, dan dikembangkan untuk keperluan riset maupun kebutuhan sivitas akademika di Indonesia.'
+      a: 'Ya. EduPass Generator dilisensikan di bawah lisensi terbuka MIT. Kode sumber backend (Python/FastAPI/Playwright) dan frontend (Svelte 5/Vite/Tailwind v4) bebas diaudit, dikloning, dan dikembangkan untuk keperluan riset maupun kebutuhan sivitas akademika di Indonesia.'
     }
   ]
 
@@ -612,11 +612,9 @@
   <header class="border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="w-8 h-8 rounded-lg bg-sky-600 border border-sky-400 flex items-center justify-center text-white font-bold text-sm tracking-wider shadow-sm">
-          CID
-        </div>
+        <img src="/favicon.svg" alt="EduPass" class="w-8 h-8 rounded-lg shadow-sm" />
         <div class="flex items-center space-x-2">
-          <span class="font-bold text-slate-900 dark:text-white tracking-tight text-base">CivitasID</span>
+          <span class="font-bold text-slate-900 dark:text-white tracking-tight text-base">EduPass Generator</span>
         </div>
       </div>
 
@@ -676,7 +674,7 @@
           type="button"
           onclick={() => showAboutModal = true}
           class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-[#1e293b] hover:bg-slate-200 dark:hover:bg-slate-700 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-white transition text-slate-700 dark:text-slate-200 font-semibold flex items-center gap-1.5 cursor-pointer shadow-2xs"
-          title="Tentang CivitasID & Panduan / FAQ"
+          title="Tentang EduPass Generator & Panduan / FAQ"
         >
           <HelpCircle size={14} class="text-sky-600 dark:text-sky-400" />
           <span class="hidden sm:inline">Tentang & FAQ</span>
@@ -2268,7 +2266,7 @@
               <Info size={17} />
             </div>
             <div>
-              <h3 class="text-base font-bold text-slate-900 dark:text-white">Tentang CivitasID & Panduan</h3>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white">Tentang EduPass Generator & Panduan</h3>
               <p class="text-[11px] text-slate-500 dark:text-slate-300 font-mono">Platform Eksplorasi Data Terbuka PDDIKTI Kemdiktisaintek RI</p>
             </div>
           </div>
@@ -2404,7 +2402,7 @@
               <span>Integrasi Bot Telegram Mandiri</span>
             </div>
             <p class="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
-              CivitasID dilengkapi backend bot Telegram bawaan (berbasis <code class="text-sky-600 dark:text-sky-300 font-mono">aiogram 3</code>).
+              EduPass Generator dilengkapi backend bot Telegram bawaan (berbasis <code class="text-sky-600 dark:text-sky-300 font-mono">aiogram 3</code>).
               Untuk mengaktifkan: atur <code class="text-sky-600 dark:text-sky-300 font-mono">ENABLE_TELEGRAM_BOT=true</code> dan isi <code class="text-sky-600 dark:text-sky-300 font-mono">TELEGRAM_BOT_TOKEN</code> di file <code class="text-sky-600 dark:text-sky-300 font-mono">.env</code> backend.
             </p>
           </div>
@@ -2412,7 +2410,7 @@
 
         <!-- Modal Footer -->
         <div class="px-5 py-3 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#0f172a] flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-          <span class="font-mono text-[11px]">CivitasID v1.3.0 • Open Source (MIT)</span>
+          <span class="font-mono text-[11px]">EduPass Generator v1.3.0 • Open Source (MIT)</span>
           <button
             type="button"
             onclick={() => showAboutModal = false}
@@ -2429,7 +2427,7 @@
   <footer class="border-t border-slate-200 dark:border-slate-800 py-6 mt-12 bg-white dark:bg-[#0f172a] text-xs text-slate-500 dark:text-slate-400">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
       <div class="flex items-center gap-3">
-        <span>CivitasID — Platform eksplorasi data terbuka PDDIKTI Kemdiktisaintek RI.</span>
+        <span>EduPass Generator — Platform eksplorasi data terbuka PDDIKTI Kemdiktisaintek RI.</span>
         <button
           type="button"
           onclick={() => showAboutModal = true}

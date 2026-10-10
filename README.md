@@ -1,6 +1,11 @@
-# CivitasID
-
 <div align="center">
+
+  <img src="docs/assets/logo.svg" alt="EduPass Generator Logo" width="128" height="128" />
+
+  # EduPass Generator
+
+  <p><strong>Open Academic Intelligence Suite & Dynamic Student Credential Engine</strong></p>
+  <p>Verifikasi Data Perguruan Tinggi, Mahasiswa, Dosen, & Generator Dokumen Akademik Valid (PDDIKTI, BAN-PT, & SINTA)</p>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB.svg?logo=python&logoColor=white)](https://python.org)
@@ -19,9 +24,9 @@
 
 ## Ringkasan Proyek
 
-**CivitasID** adalah platform sumber terbuka (*open-source*) modern yang dirancang untuk mengeksplorasi, memvalidasi, dan menyajikan kecerdasan data pendidikan tinggi secara terbuka, transparan, dan terstandarisasi.
+**EduPass Generator** adalah platform sumber terbuka (*open-source*) modern yang dirancang untuk mengeksplorasi, memvalidasi, dan menyajikan kecerdasan data pendidikan tinggi secara terbuka, transparan, dan terstandarisasi.
 
-CivitasID tidak hanya menghubungkan pengguna ke pangkalan data resmi **PDDIKTI Kemdiktisaintek RI**, melainkan juga memadukan 7 ekosistem data ilmiah nasional dan internasional untuk menyajikan profil akademik yang utuh dan terverifikasi:
+EduPass Generator tidak hanya menghubungkan pengguna ke pangkalan data resmi **PDDIKTI Kemdiktisaintek RI**, melainkan juga memadukan 7 ekosistem data ilmiah nasional dan internasional untuk menyajikan profil akademik yang utuh dan terverifikasi:
 
 1. **Eksplorasi Multi-Kategori 360°**: Mahasiswa (status & riwayat), Dosen (jabatan, mengajar & skor publikasi SINTA), serta Perguruan Tinggi (akreditasi, rektor, media sosial resmi, koordinat satelit GPS, biaya SPP, dan daftar prodi lengkap).
 2. **Mesin Dokumen Akademik Prosedural**: Membangun Surat Keterangan Mahasiswa Aktif (SKMA Standar & Bilingual), Kartu Tanda Mahasiswa (KTM) Digital dua sisi berstandar ISO CR80 dengan pas foto, dan Transkrip Sementara dalam format **PDF A4** serta **PNG** resolusi tinggi.
@@ -33,7 +38,7 @@ CivitasID tidak hanya menghubungkan pengguna ke pangkalan data resmi **PDDIKTI K
 
 ## Sumber Data & Ekosistem Terintegrasi
 
-CivitasID menggabungkan 7 pangkalan data dan sumber informasi resmi publik:
+EduPass Generator menggabungkan 7 pangkalan data dan sumber informasi resmi publik:
 
 | No | Pangkalan Data / Sumber | Domain / Akses | Peran & Kontribusi Data |
 | :-: | :--- | :--- | :--- |
@@ -49,7 +54,7 @@ CivitasID menggabungkan 7 pangkalan data dan sumber informasi resmi publik:
 
 ## Matriks Cakupan Data yang Diambil
 
-Berikut adalah rincian data yang diproses dan disajikan oleh CivitasID:
+Berikut adalah rincian data yang diproses dan disajikan oleh EduPass Generator:
 
 ### 1. Entitas Mahasiswa
 * **Identitas Pokok**: Nama Lengkap, Nomor Induk Mahasiswa (NIM), Jenis Kelamin (`L`/`P`), Jenjang Studi (`D3`, `D4`, `S1`, `S2`, `S3`).
@@ -80,30 +85,30 @@ Berikut adalah rincian data yang diproses dan disajikan oleh CivitasID:
 ### 1. Eksplorasi Mahasiswa, Pas Foto Uploader & Generator Dokumen Dinamis
 Antarmuka default mode terang berstandar akademis dengan kontras tinggi, filter Select2 instan, preset kampus populer, fitur pas foto lokal, dan generator dokumen digital live.
 
-![CivitasID Mahasiswa Explorer Light Mode](docs/screenshots/showcase-lightmode-detail.png)
+![EduPass Generator Mahasiswa Explorer Light Mode](docs/screenshots/showcase-lightmode-detail.png)
 
 ---
 
 ### 2. Profil Dosen (Lengkap dengan Foto Asli SINTA, Metrik Riset & Riwayat Mengajar)
 Sinkronisasi profil author SINTA Kemdiktisaintek secara otomatis menampilkan foto profil, SINTA ID, skor publikasi 3 tahun/kumulatif, Scopus H-Index, serta riwayat pendidikan dan aktivitas mengajar per semester.
 
-![CivitasID Profil Dosen](docs/screenshots/showcase-dosen-detail.png)
+![EduPass Generator Profil Dosen](docs/screenshots/showcase-dosen-detail.png)
 
 ---
 
 ### 3. Profil Perguruan Tinggi (Pimpinan Rektor, Media Sosial, GPS & Tabel Prodi Lengkap)
 Menampilkan data komprehensif perguruan tinggi: Rektor terdata, akun media sosial resmi institusi, koordinat satelit GPS, rasio dosen:mahasiswa, masa studi, tabel program studi dengan pencarian prodi, dan fasilitas sarpras.
 
-![CivitasID Profil Kampus](docs/screenshots/showcase-pt-detail.png)
+![EduPass Generator Profil Kampus](docs/screenshots/showcase-pt-detail.png)
 
 ---
 
 ### 4. Dokumentasi REST API Interaktif & Panel Tentang / FAQ
 Tersedia tab dokumentasi REST API interaktif bawaan dengan cuplikan cURL instan, skema payload, penjelasan status code, dan panel FAQ dengan arsitektur transparan.
 
-| Dokumentasi REST API Interaktif | Tentang CivitasID & Panduan FAQ |
+| Dokumentasi REST API Interaktif | Tentang EduPass Generator & Panduan FAQ |
 | :---: | :---: |
-| ![CivitasID API Docs](docs/screenshots/showcase-apidocs.png) | ![CivitasID Panduan FAQ](docs/screenshots/showcase-faq.png) |
+| ![EduPass Generator API Docs](docs/screenshots/showcase-apidocs.png) | ![EduPass Generator Panduan FAQ](docs/screenshots/showcase-faq.png) |
 
 ---
 
@@ -111,7 +116,7 @@ Tersedia tab dokumentasi REST API interaktif bawaan dengan cuplikan cURL instan,
 Antarmuka disesuaikan dengan ergonomi layar sentuh ponsel (minimum target sentuh 44px, bottom sheet layout, navigasi tab ringkas, dan kontras tinggi).
 
 <div align="center">
-  <img src="docs/screenshots/showcase-mobile.png" alt="CivitasID Mobile View" width="420" />
+  <img src="docs/screenshots/showcase-mobile.png" alt="EduPass Generator Mobile View" width="420" />
 </div>
 
 ---
@@ -243,7 +248,7 @@ Buka peramban pada alamat `http://localhost:5173`.
 
 ## Integrasi Telegram Bot
 
-CivitasID dilengkapi bot Telegram interaktif berbasis `aiogram v3` yang mampu mencari data dan mengirimkan berkas PDF dokumen langsung ke ruang obrolan Telegram.
+EduPass Generator dilengkapi bot Telegram interaktif berbasis `aiogram v3` yang mampu mencari data dan mengirimkan berkas PDF dokumen langsung ke ruang obrolan Telegram.
 
 ### Konfigurasi Token Bot
 1. Buat bot baru melalui [@BotFather](https://t.me/BotFather) di Telegram dan catat API Token yang diberikan.
@@ -285,10 +290,10 @@ Dokumentasi interaktif OpenAPI / Swagger UI tersedia secara lokal di `http://127
 ## Kebijakan Privasi & Batasan Tanggung Jawab
 
 ### Kepatuhan terhadap UU Pelindungan Data Pribadi (UU PDP No. 27/2022)
-> 1. **Zero-Storage Policy**: Server CivitasID tidak pernah mencatat, mengumpulkan, atau memperjualbelikan basis data pribadi mahasiswa, dosen, maupun perguruan tinggi. Seluruh data diproses secara in-memory untuk rendering berkas dan dilindungi kebijakan sesi sementara.
-> 2. **Perlindungan Kontak Privat**: CivitasID secara tegas **tidak mengambil dan tidak mempublikasikan** nomor telepon seluler maupun email pribadi mahasiswa. Hal ini sesuai dengan mandat perlindungan data pribadi spesifik dalam UU PDP guna mencegah penyalahgunaan data, telemarketing ilegal, dan kejahatan siber.
+> 1. **Zero-Storage Policy**: Server EduPass Generator tidak pernah mencatat, mengumpulkan, atau memperjualbelikan basis data pribadi mahasiswa, dosen, maupun perguruan tinggi. Seluruh data diproses secara in-memory untuk rendering berkas dan dilindungi kebijakan sesi sementara.
+> 2. **Perlindungan Kontak Privat**: EduPass Generator secara tegas **tidak mengambil dan tidak mempublikasikan** nomor telepon seluler maupun email pribadi mahasiswa. Hal ini sesuai dengan mandat perlindungan data pribadi spesifik dalam UU PDP guna mencegah penyalahgunaan data, telemarketing ilegal, dan kejahatan siber.
 
 ### Batasan Tanggung Jawab (*Legal & Academic Disclaimer*)
-> 1. CivitasID adalah proyek utilitas independen dan **tidak berafiliasi** secara resmi dengan Kementerian Pendidikan Tinggi, Sains, dan Teknologi RI ataupun pengelola resmi PDDIKTI.
+> 1. EduPass Generator adalah proyek utilitas independen dan **tidak berafiliasi** secara resmi dengan Kementerian Pendidikan Tinggi, Sains, dan Teknologi RI ataupun pengelola resmi PDDIKTI.
 > 2. Semua data yang disajikan diperoleh secara langsung dari indeks publik terbuka PDDIKTI, SINTA, Google Scholar, dan Wikipedia.
 > 3. Dokumen digital (SKMA, KTM, Transkrip) yang dihasilkan oleh sistem ini merupakan dokumen simulasi akademik (*preview / mock representation*) untuk keperluan verifikasi administratif non-formal atau pembuktian status mahasiswa aktif pada platform mitra. Dokumen ini **bukan dokumen resmi berkekuatan hukum** pengganti surat yang diterbitkan langsung oleh Biro Administrasi Akademik atau Dekanat Perguruan Tinggi yang bersangkutan. Pengguna bertanggung jawab penuh atas pemanfaatan dokumen yang dihasilkan.
