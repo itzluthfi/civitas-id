@@ -95,10 +95,10 @@ def generate_dynamic_stamp_svg(nama_pt: str, city: str, acronym: str) -> str:
       <textPath href="#stampTop" startOffset="50%" text-anchor="middle">{clean_pt}</textPath>
     </text>
     <text font-family="'Times New Roman', serif" font-size="10" font-weight="bold" fill="#003366" letter-spacing="1.2">
-      <textPath href="#stampBottom" startOffset="50%" text-anchor="middle">★ {city.upper()} - TERVERIFIKASI ★</textPath>
+      <textPath href="#stampBottom" startOffset="50%" text-anchor="middle">{city.upper()}</textPath>
     </text>
     <text x="100" y="96" font-family="'Times New Roman', serif" font-size="15" font-weight="bold" fill="#003366" text-anchor="middle">{acronym}</text>
-    <text x="100" y="112" font-family="'Times New Roman', serif" font-size="8" font-weight="bold" fill="#003366" text-anchor="middle">PDDIKTI RESMI</text>
+    <text x="100" y="112" font-family="'Times New Roman', serif" font-size="8.5" font-weight="bold" fill="#003366" text-anchor="middle">AKADEMIK</text>
   </g>
 </svg>"""
 

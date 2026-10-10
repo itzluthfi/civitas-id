@@ -193,21 +193,20 @@ async def generate_skma_standard(data: Dict[str, Any], output_format: str = "pdf
             <tr><td class="data-label">Nama Mahasiswa</td><td class="data-separator">:</td><td class="data-val">{data.get('nama')}</td></tr>
             <tr><td class="data-label">Nomor Induk Mahasiswa (NIM)</td><td class="data-separator">:</td><td class="data-val">{data.get('nim')}</td></tr>
             <tr><td class="data-label">Program Studi</td><td class="data-separator">:</td><td class="data-val">{clean_prodi} (Jenjang {data.get('jenjang', 'Sarjana')})</td></tr>
-            <tr><td class="data-label">Status Terdaftar</td><td class="data-separator">:</td><td class="data-val">Terdaftar Resmi PDDIKTI</td></tr>
             <tr><td class="data-label">Status Keaktifan</td><td class="data-separator">:</td><td class="data-val">{data.get('status_saat_ini', 'Aktif')}</td></tr>
         </table>
         <div class="paragraf">
-            Adalah benar mahasiswa aktif pada Tahun Akademik berjalan dan tercatat secara sah dalam Pangkalan Data Pendidikan Tinggi (PDDIKTI) Kementerian Pendidikan Tinggi, Sains, dan Teknologi Republik Indonesia.
+            Adalah benar mahasiswa aktif pada Tahun Akademik berjalan dan tercatat secara sah pada pangkalan data universitas.
         </div>
         <div class="paragraf">
             Surat keterangan ini diterbitkan secara sah untuk dipergunakan sebagaimana mestinya.
         </div>
         <div class="signature-block">
             <div class="qr-panel">
-                <img class="qr-image" src="data:image/png;base64,{qr_b64}" alt="QR PDDIKTI">
+                <img class="qr-image" src="data:image/png;base64,{qr_b64}" alt="QR">
                 <div class="qr-desc">
-                    <strong style="color: #002b49; font-size: 8.5pt; display: block;">VERIFIKASI RESMI PDDIKTI</strong>
-                    Pindai untuk memverifikasi keabsahan status mahasiswa pada basis data nasional Kemdiktisaintek RI.
+                    <strong style="color: #002b49; font-size: 8.5pt; display: block;">VERIFIKASI DIGITAL</strong>
+                    Pindai untuk memverifikasi keabsahan dokumen dan status mahasiswa secara daring.
                 </div>
             </div>
             <div class="signature-box">
@@ -321,17 +320,16 @@ async def generate_skma_bilingual(data: Dict[str, Any], output_format: str = "pd
             <tr><td><div class="lbl-en">Student Identification Number</div><div class="lbl-id">NIM / NPM</div></td><td>:</td><td class="val">{data.get('nim')}</td></tr>
             <tr><td><div class="lbl-en">Degree & Major</div><div class="lbl-id">Jenjang & Program Studi</div></td><td>:</td><td class="val">{clean_prodi} ({data.get('jenjang', 'Bachelor / Sarjana')})</td></tr>
             <tr><td><div class="lbl-en">Enrollment Status</div><div class="lbl-id">Status Keaktifan</div></td><td>:</td><td class="val">{data.get('status_saat_ini', 'Active')}</td></tr>
-            <tr><td><div class="lbl-en">National Higher Education Registry</div><div class="lbl-id">Basis Data Nasional PDDIKTI</div></td><td>:</td><td class="val">Officially Registered (Verified Record)</td></tr>
         </table>
         <div>
-            This certificate is officially issued to serve for international academic verification, educational discount privileges, student developer programs, and scholarship eligibility.
+            This certificate is officially issued to serve for academic verification, educational discount privileges, student developer programs, and scholarship eligibility.
         </div>
         <div class="signature-block">
             <div class="qr-panel">
                 <img class="qr-image" src="data:image/png;base64,{qr_b64}" alt="QR">
                 <div class="qr-desc">
-                    <strong style="color: #002b49; font-size: 8pt; display: block;">MINISTRY REGISTRY VALIDATION</strong>
-                    Official verification QR directly linked to the Higher Education Database (PDDIKTI), Ministry of Higher Education, Science, and Technology Republic of Indonesia.
+                    <strong style="color: #002b49; font-size: 8pt; display: block;">DIGITAL DOCUMENT VERIFICATION</strong>
+                    Scan this QR code to verify the authentic student enrollment status directly online.
                 </div>
             </div>
             <div class="signature-box">
@@ -442,8 +440,10 @@ async def generate_ktm_digital(data: Dict[str, Any], output_format: str = "pdf")
             .cf-val-npm {{ font-size: 26px; font-weight: 900; color: #facc15; letter-spacing: 1.5px; font-family: monospace; }}
             .cf-val {{ font-size: 17px; font-weight: 700; color: #f1f5f9; }}
             .cf-footer {{ display: flex; justify-content: space-between; align-items: flex-end; border-top: 2px solid rgba(255,255,255,0.18); padding-top: 16px; }}
+            .cf-chip-group {{ display: flex; align-items: center; gap: 16px; }}
             .cf-chip {{ width: 72px; height: 52px; background: linear-gradient(135deg, #d4af37, #fde047, #a16207); border-radius: 10px; border: 1.5px solid rgba(255,255,255,0.4); }}
-            .cf-status-badge {{ font-size: 13px; font-weight: 800; background: #059669; color: #fff; padding: 7px 20px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(5,150,105,0.4); }}
+            .cf-nfc-icon {{ width: 30px; height: 30px; opacity: 0.85; }}
+            .cf-card-type {{ font-size: 14px; font-weight: 800; color: #f1f5f9; letter-spacing: 2px; text-transform: uppercase; border: 1.5px solid rgba(255,255,255,0.25); padding: 6px 18px; border-radius: 20px; }}
             
             .card-back {{ background: #ffffff; color: #1e293b; padding: 0 38px 28px 38px; display: flex; flex-direction: column; justify-content: space-between; }}
             .cb-strip {{ margin: 0 -38px; height: 64px; background: #020617; }}
@@ -480,8 +480,15 @@ async def generate_ktm_digital(data: Dict[str, Any], output_format: str = "pdf")
                 </div>
             </div>
             <div class="cf-footer">
-                <div class="cf-chip"></div>
-                <div class="cf-status-badge">TERDAFTAR RESMI PDDIKTI</div>
+                <div class="cf-chip-group">
+                    <div class="cf-chip"></div>
+                    <svg class="cf-nfc-icon" viewBox="0 0 24 24" fill="none" stroke="#f1f5f9" stroke-width="2.2" stroke-linecap="round">
+                        <path d="M6 8a9 9 0 0 1 0 8"/>
+                        <path d="M9 10a5 5 0 0 1 0 4"/>
+                        <path d="M12 12a1 1 0 0 1 0 0.1"/>
+                    </svg>
+                </div>
+                <div class="cf-card-type">STUDENT CARD</div>
             </div>
         </div>
         <div class="card card-back">
@@ -492,12 +499,12 @@ async def generate_ktm_digital(data: Dict[str, Any], output_format: str = "pdf")
                     <ol>
                         <li>Kartu Tanda Mahasiswa (KTM) ini merupakan identitas resmi civitas akademika {clean_pt}.</li>
                         <li>Dilarang menyalahgunakan identitas atau memindahtangankan kartu ini kepada pihak lain.</li>
-                        <li>Keabsahan status akademik terhubung langsung ke Pangkalan Data Pendidikan Tinggi (PDDIKTI) Kemdiktisaintek RI.</li>
+                        <li>Wajib dibawa selama beraktivitas di lingkungan kampus.</li>
                     </ol>
                 </div>
                 <div class="cb-qr-box">
                     <img class="cb-qr" src="data:image/png;base64,{qr_b64}" alt="QR">
-                    <div class="cb-qr-label">SCAN PDDIKTI</div>
+                    <div class="cb-qr-label">VERIFIKASI</div>
                 </div>
             </div>
             <div class="cb-footer">
@@ -645,7 +652,7 @@ async def generate_transcript(data: Dict[str, Any], output_format: str = "pdf") 
                 <div class="kop-instansi">Kementerian Pendidikan Tinggi, Sains, dan Teknologi</div>
                 <div class="kop-pt">{clean_pt}</div>
                 <div class="kop-fakultas">{faculty_id}</div>
-                <div class="kop-alamat">Pangkalan Data Pendidikan Tinggi | Kode PT: {kode_pt} | {city}, Indonesia</div>
+                <div class="kop-alamat">Sistem Informasi Akademik | Kode PT: {kode_pt} | {city}, Indonesia</div>
             </div>
         </div>
         <div class="kop-divider"></div>
@@ -663,8 +670,8 @@ async def generate_transcript(data: Dict[str, Any], output_format: str = "pdf") 
                 <td class="col-label" style="padding-left: 20px;">Jenjang / Fakultas</td><td>: <strong>{data.get('jenjang', 'Sarjana')} / {acronym}</strong></td>
             </tr>
             <tr>
-                <td class="col-label">Status Registrasi Dikti</td><td>: <strong>Terdaftar Resmi (PDDIKTI Aktif)</strong></td>
-                <td class="col-label" style="padding-left: 20px;">Status Keaktifan</td><td>: <strong>{data.get('status_saat_ini', 'Aktif')}</strong></td>
+                <td class="col-label">Status Akademik</td><td>: <strong>{data.get('status_saat_ini', 'Aktif')}</strong></td>
+                <td class="col-label" style="padding-left: 20px;">Tahun Akademik</td><td>: <strong>2025/2026</strong></td>
             </tr>
         </table>
         <div class="transcript-grid">
@@ -680,8 +687,8 @@ async def generate_transcript(data: Dict[str, Any], output_format: str = "pdf") 
             <div class="qr-side">
                 <img src="data:image/png;base64,{qr_b64}" alt="QR">
                 <div class="qr-side-text">
-                    <strong style="color: #002b49; display: block; font-size: 8pt;">VERIFIKASI PDDIKTI</strong>
-                    Pindai untuk memvalidasi catatan keaktifan resmi di Pangkalan Data Pendidikan Tinggi Kemdiktisaintek RI.
+                    <strong style="color: #002b49; display: block; font-size: 8pt;">VERIFIKASI DIGITAL</strong>
+                    Pindai untuk memvalidasi catatan keaktifan resmi mahasiswa secara daring.
                 </div>
             </div>
             <div class="ttd-side">
