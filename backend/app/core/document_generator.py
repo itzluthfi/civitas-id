@@ -44,7 +44,7 @@ def _generate_barcode_b64(value: str) -> str:
     bar.write(buf)
     return base64.b64encode(buf.getvalue()).decode("utf-8")
 
-async def _render_document(html: str, output_format: str = "pdf", viewport_w: int = 1200, viewport_h: int = 1697) -> bytes:
+async def _render_document(html: str, output_format: str = "pdf", viewport_w: int = 1200, viewport_h: int = 1697, device_scale_factor: int = 2) -> bytes:
     with tempfile.NamedTemporaryFile(suffix=".html", delete=False, mode="w", encoding="utf-8") as f:
         f.write(html)
         temp_path = f.name
@@ -52,7 +52,11 @@ async def _render_document(html: str, output_format: str = "pdf", viewport_w: in
     try:
         async with async_playwright() as p:
             browser = await p.chromium.launch(headless=True, args=["--no-sandbox", "--disable-dev-shm-usage"])
-            page = await browser.new_page()
+            context = await browser.new_context(
+                viewport={"width": viewport_w, "height": viewport_h},
+                device_scale_factor=device_scale_factor
+            )
+            page = await context.new_page()
             await page.goto(f"file:///{temp_path}", wait_until="networkidle")
             
             if output_format == "pdf":
@@ -60,7 +64,6 @@ async def _render_document(html: str, output_format: str = "pdf", viewport_w: in
                 await browser.close()
                 return pdf_bytes
             else:
-                page.set_viewport_size({"width": viewport_w, "height": viewport_h})
                 png_bytes = await page.screenshot(full_page=True)
                 await browser.close()
                 return png_bytes
@@ -89,7 +92,8 @@ async def generate_skma_standard(data: Dict[str, Any], output_format: str = "pdf
     stamp_b64 = base64.b64encode(stamp_svg.encode("utf-8")).decode("utf-8")
     sig_b64 = base64.b64encode(SIGNATURE_DEAN_SVG.encode("utf-8")).decode("utf-8")
 
-    kop_yayasan = "YAYASAN PENDIDIKAN MAJU BANGSA" if "adhi tama" in clean_pt.lower() else "KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI"
+    is_negeri = any(k in clean_pt.lower() for k in ["negeri", "universitas indonesia", "institut teknologi bandung", "universitas gadjah mada", "institut teknologi sepuluh nopember", "universitas airlangga", "universitas brawijaya", "universitas diponegoro", "universitas padjadjaran", "uin ", "iain "])
+    kop_yayasan = "KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI" if is_negeri else "LEMBAGA LAYANAN PENDIDIKAN TINGGI (LLDIKTI)"
     nomor_surat = f"{kode_pt.strip() or '084'}/BAAK/{acronym}/X/2026"
 
     html = f"""<!DOCTYPE html>
@@ -369,21 +373,21 @@ async def generate_ktm_digital(data: Dict[str, Any], output_format: str = "pdf")
         if jk == "P":
             photo_box_html = """
                 <div class="cf-avatar" style="background: linear-gradient(180deg, #334155, #1e293b); width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.6">
+                    <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.8">
                         <path d="M12 14c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5z"/>
                         <path d="M5.5 21a6.5 6.5 0 0 1 13 0"/>
                     </svg>
-                    <span style="font-size: 4pt; color: #cbd5e1; margin-top: 1mm; font-weight: bold;">PAS FOTO</span>
+                    <span style="font-size: 12px; color: #cbd5e1; margin-top: 8px; font-weight: 800; letter-spacing: 1px;">PAS FOTO</span>
                 </div>
             """
         else:
             photo_box_html = """
                 <div class="cf-avatar" style="background: linear-gradient(180deg, #1e293b, #0f172a); width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.6">
+                    <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.8">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                         <circle cx="12" cy="7" r="4"/>
                     </svg>
-                    <span style="font-size: 4pt; color: #cbd5e1; margin-top: 1mm; font-weight: bold;">PAS FOTO</span>
+                    <span style="font-size: 12px; color: #cbd5e1; margin-top: 8px; font-weight: 800; letter-spacing: 1px;">PAS FOTO</span>
                 </div>
             """
 
@@ -393,63 +397,67 @@ async def generate_ktm_digital(data: Dict[str, Any], output_format: str = "pdf")
         <meta charset="UTF-8">
         <title>Kartu Tanda Mahasiswa Digital</title>
         <style>
-            @page {{ size: 85.6mm 115mm; margin: 0; }}
+            @page {{ size: 900px 1260px; margin: 0; }}
             * {{ box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }}
             body {{
                 margin: 0;
-                padding: 3mm;
-                background-color: #0f172a;
+                padding: 30px;
+                background-color: #0b1120;
                 display: flex;
                 flex-direction: column;
-                gap: 3mm;
+                gap: 30px;
                 align-items: center;
                 justify-content: center;
+                width: 960px;
             }}
             .card {{
-                width: 85.6mm;
-                height: 53.98mm;
-                border-radius: 3.2mm;
+                width: 900px;
+                height: 568px;
+                border-radius: 28px;
                 overflow: hidden;
                 position: relative;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+                box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
                 flex-shrink: 0;
             }}
             .card-front {{
-                background: linear-gradient(135deg, #001f3f 0%, #002b49 50%, #004080 100%);
+                background: linear-gradient(135deg, #021526 0%, #032b49 50%, #044b7f 100%);
                 color: #ffffff;
-                padding: 3.5mm 4.5mm;
+                padding: 32px 38px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
             }}
-            .cf-header {{ display: flex; align-items: center; gap: 2.5mm; border-bottom: 0.3mm solid rgba(255,255,255,0.2); padding-bottom: 1.5mm; }}
-            .cf-logo {{ width: 8.5mm; height: 8.5mm; object-fit: contain; }}
-            .cf-instansi h1 {{ font-size: 6.8pt; margin: 0; font-weight: 800; color: #ffd700; text-transform: uppercase; }}
-            .cf-instansi p {{ font-size: 4.8pt; margin: 0; color: #e2e8f0; }}
-            .cf-body {{ display: flex; gap: 3.5mm; align-items: center; margin: 1.5mm 0; }}
+            .cf-header {{ display: flex; align-items: center; gap: 20px; border-bottom: 2px solid rgba(255,255,255,0.22); padding-bottom: 18px; }}
+            .cf-logo {{ width: 76px; height: 76px; object-fit: contain; }}
+            .cf-instansi h1 {{ font-size: 24px; margin: 0; font-weight: 800; color: #facc15; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.25; }}
+            .cf-instansi p {{ font-size: 13.5px; margin: 4px 0 0 0; color: #e2e8f0; font-weight: 600; letter-spacing: 1px; }}
+            .cf-body {{ display: flex; gap: 30px; align-items: center; margin: 12px 0; }}
             .cf-photo-box {{
-                width: 22mm; height: 28mm; border: 0.4mm solid #ffd700; border-radius: 2mm; overflow: hidden; background: #1e293b;
-                display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+                width: 200px; height: 260px; border: 3.5px solid #facc15; border-radius: 18px; overflow: hidden; background: #1e293b;
+                display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 8px 16px rgba(0,0,0,0.4);
             }}
-            .cf-avatar {{ width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94a3b8; font-size: 6pt; }}
-            .cf-data {{ flex-grow: 1; font-size: 5.8pt; line-height: 1.35; }}
-            .cf-label {{ font-size: 4.5pt; color: #94a3b8; text-transform: uppercase; }}
-            .cf-val-name {{ font-size: 7.2pt; font-weight: bold; color: #ffffff; text-transform: uppercase; }}
-            .cf-val-npm {{ font-size: 7.5pt; font-weight: 800; color: #ffd700; }}
-            .cf-val {{ font-weight: 600; color: #f8fafc; }}
-            .cf-footer {{ display: flex; justify-content: space-between; align-items: flex-end; border-top: 0.3mm solid rgba(255,255,255,0.15); padding-top: 1.5mm; }}
-            .cf-chip {{ width: 7.5mm; height: 5.5mm; background: linear-gradient(135deg, #d4af37, #f3e5ab, #aa7c11); border-radius: 1mm; }}
-            .cf-status-badge {{ font-size: 5pt; font-weight: bold; background: #059669; color: #fff; padding: 0.6mm 2mm; border-radius: 1.5mm; text-transform: uppercase; }}
-            .card-back {{ background: #ffffff; color: #1e293b; padding: 3mm 4mm; display: flex; flex-direction: column; justify-content: space-between; }}
-            .cb-strip {{ position: absolute; top: 0; left: 0; right: 0; height: 7mm; background: #020617; }}
-            .cb-content {{ margin-top: 7.5mm; display: flex; justify-content: space-between; align-items: center; gap: 3mm; }}
-            .cb-rules {{ flex-grow: 1; font-size: 4.5pt; color: #475569; line-height: 1.35; }}
-            .cb-qr-box {{ display: flex; flex-direction: column; align-items: center; flex-shrink: 0; border: 0.3mm solid #cbd5e1; padding: 1mm; border-radius: 1.5mm; }}
-            .cb-qr {{ width: 18mm; height: 18mm; }}
-            .cb-qr-label {{ font-size: 4pt; font-weight: bold; color: #002b49; margin-top: 0.5mm; }}
-            .cb-footer {{ display: flex; justify-content: space-between; align-items: center; border-top: 0.2mm solid #e2e8f0; padding-top: 1.5mm; }}
-            .cb-barcode {{ height: 6mm; }}
-            .cb-address {{ font-size: 4.2pt; color: #64748b; text-align: right; line-height: 1.25; }}
+            .cf-data {{ flex-grow: 1; display: flex; flex-direction: column; gap: 12px; }}
+            .cf-label {{ font-size: 12px; color: #94a3b8; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }}
+            .cf-val-name {{ font-size: 24px; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 0.5px; }}
+            .cf-val-npm {{ font-size: 26px; font-weight: 900; color: #facc15; letter-spacing: 1.5px; font-family: monospace; }}
+            .cf-val {{ font-size: 17px; font-weight: 700; color: #f1f5f9; }}
+            .cf-footer {{ display: flex; justify-content: space-between; align-items: flex-end; border-top: 2px solid rgba(255,255,255,0.18); padding-top: 16px; }}
+            .cf-chip {{ width: 72px; height: 52px; background: linear-gradient(135deg, #d4af37, #fde047, #a16207); border-radius: 10px; border: 1.5px solid rgba(255,255,255,0.4); }}
+            .cf-status-badge {{ font-size: 13px; font-weight: 800; background: #059669; color: #fff; padding: 7px 20px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(5,150,105,0.4); }}
+            
+            .card-back {{ background: #ffffff; color: #1e293b; padding: 0 38px 28px 38px; display: flex; flex-direction: column; justify-content: space-between; }}
+            .cb-strip {{ margin: 0 -38px; height: 64px; background: #020617; }}
+            .cb-content {{ margin-top: 20px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }}
+            .cb-rules {{ flex-grow: 1; font-size: 13.5px; color: #334155; line-height: 1.55; }}
+            .cb-rules strong {{ font-size: 14.5px; color: #002b49; display: block; margin-bottom: 6px; }}
+            .cb-rules ol {{ padding-left: 20px; margin: 4px 0; }}
+            .cb-rules li {{ margin-bottom: 4px; }}
+            .cb-qr-box {{ display: flex; flex-direction: column; align-items: center; flex-shrink: 0; border: 2px solid #cbd5e1; padding: 8px; border-radius: 14px; background: #f8fafc; }}
+            .cb-qr {{ width: 140px; height: 140px; }}
+            .cb-qr-label {{ font-size: 11px; font-weight: 800; color: #002b49; margin-top: 4px; letter-spacing: 0.5px; }}
+            .cb-footer {{ display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #e2e8f0; padding-top: 14px; margin-top: 10px; }}
+            .cb-barcode {{ height: 50px; max-width: 280px; object-fit: contain; }}
+            .cb-address {{ font-size: 12.5px; color: #64748b; text-align: right; line-height: 1.4; }}
         </style>
     </head>
     <body>
@@ -466,9 +474,9 @@ async def generate_ktm_digital(data: Dict[str, Any], output_format: str = "pdf")
                     {photo_box_html}
                 </div>
                 <div class="cf-data">
-                    <div><span class="cf-label">Nama</span><div class="cf-val-name">{data.get('nama')}</div></div>
-                    <div><span class="cf-label">NIM</span><div class="cf-val-npm">{data.get('nim')}</div></div>
-                    <div><span class="cf-label">Program Studi</span><div class="cf-val">{clean_prodi} ({data.get('jenjang', 'S-1')})</div></div>
+                    <div><span class="cf-label">Nama Lengkap</span><div class="cf-val-name">{data.get('nama')}</div></div>
+                    <div><span class="cf-label">Nomor Induk Mahasiswa (NIM)</span><div class="cf-val-npm">{data.get('nim')}</div></div>
+                    <div><span class="cf-label">Program Studi & Jenjang</span><div class="cf-val">{clean_prodi} ({data.get('jenjang', 'S-1')})</div></div>
                 </div>
             </div>
             <div class="cf-footer">
@@ -481,7 +489,7 @@ async def generate_ktm_digital(data: Dict[str, Any], output_format: str = "pdf")
             <div class="cb-content">
                 <div class="cb-rules">
                     <strong>KETENTUAN KARTU IDENTITAS MAHASISWA:</strong>
-                    <ol style="padding-left: 3mm; margin: 1mm 0;">
+                    <ol>
                         <li>Kartu Tanda Mahasiswa (KTM) ini merupakan identitas resmi civitas akademika {clean_pt}.</li>
                         <li>Dilarang menyalahgunakan identitas atau memindahtangankan kartu ini kepada pihak lain.</li>
                         <li>Keabsahan status akademik terhubung langsung ke Pangkalan Data Pendidikan Tinggi (PDDIKTI) Kemdiktisaintek RI.</li>
@@ -495,16 +503,15 @@ async def generate_ktm_digital(data: Dict[str, Any], output_format: str = "pdf")
             <div class="cb-footer">
                 <img class="cb-barcode" src="data:image/png;base64,{barcode_b64}" alt="Barcode">
                 <div class="cb-address">
-                    {clean_pt}<br>
-                    {city}, Indonesia<br>
-                    Kode PT: {kode_pt}
+                    <strong style="color: #002b49;">{clean_pt}</strong><br>
+                    {city}, Indonesia | Kode PT: {kode_pt}
                 </div>
             </div>
         </div>
     </body>
     </html>
     """
-    return await _render_document(html, output_format, viewport_w=1000, viewport_h=1300)
+    return await _render_document(html, output_format, viewport_w=960, viewport_h=1260, device_scale_factor=2)
 
 # ==============================================================================
 # 4. TRANSKRIP AKADEMIK SEMENTARA (100% DINAMIS)
