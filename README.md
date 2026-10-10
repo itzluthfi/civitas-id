@@ -181,7 +181,7 @@ Deployment menyeluruh (Backend, Renderer Chromium, Frontend) dapat dijalankan da
 
 ```bash
 # Clone repository
-git clone https://github.com/your-username/civitas-id.git
+git clone https://github.com/itzluthfi/civitas-id.git
 cd civitas-id
 
 # Jalankan seluruh service dalam mode detached
