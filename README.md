@@ -181,8 +181,8 @@ Deployment menyeluruh (Backend, Renderer Chromium, Frontend) dapat dijalankan da
 
 ```bash
 # Clone repository
-git clone https://github.com/itzluthfi/civitas-id.git
-cd civitas-id
+git clone https://github.com/itzluthfi/edu-pass-generator.git
+cd edu-pass-generator
 
 # Jalankan seluruh service dalam mode detached
 docker compose up -d --build

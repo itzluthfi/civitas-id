@@ -684,7 +684,7 @@
 
         <span class="hidden lg:inline-block font-mono bg-slate-100 dark:bg-[#1e293b] px-2.5 py-1 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-semibold">v1.3.0</span>
         <a
-          href="https://github.com/itzluthfi/civitas-id"
+          href="https://github.com/itzluthfi/edu-pass-generator"
           target="_blank"
           rel="noreferrer"
           class="hidden sm:inline-block px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-[#1e293b] hover:bg-slate-200 dark:hover:bg-slate-700 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-white transition text-slate-700 dark:text-slate-200 font-semibold"
