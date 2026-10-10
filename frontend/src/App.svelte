@@ -1315,6 +1315,25 @@
               </button>
             </div>
 
+            <!-- Status Sumber Data Dokumen -->
+            {#if activeTemplate === 'transcript'}
+              <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 text-xs flex items-start gap-2.5">
+                <Info size={16} class="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                <div class="leading-relaxed">
+                  <div class="font-bold">Keterangan Sumber Data Transkrip:</div>
+                  <div class="mt-0.5 text-amber-800 dark:text-amber-300">
+                    • <strong>Identitas Mahasiswa:</strong> 100% Data Riil & Sah dari PDDIKTI Kemdiktisaintek.<br>
+                    • <strong>Daftar Mata Kuliah:</strong> Estimasi kurikulum standar program studi (Pemerintah/PDDIKTI tidak membuka nilai SIAKAD privat mahasiswa ke publik).
+                  </div>
+                </div>
+              </div>
+            {:else}
+              <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-900 dark:text-emerald-200 text-xs flex items-center gap-2">
+                <CheckCircle2 size={15} class="text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <span><strong>100% Data Riil:</strong> Seluruh identitas & keaktifan pada dokumen ini ditarik langsung dari pangkalan data resmi PDDIKTI.</span>
+              </div>
+            {/if}
+
             <!-- Download Action Buttons (Thumb-friendly full targets) -->
             <div class="flex flex-col sm:flex-row gap-2.5 pt-1">
               <button

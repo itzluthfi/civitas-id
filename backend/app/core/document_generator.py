@@ -712,7 +712,7 @@ async def generate_transcript(data: Dict[str, Any], output_format: str = "pdf") 
             </div>
         </div>
         <div class="footer-legal">
-            Transkrip akademik sementara ini sah diterbitkan oleh {clean_pt} untuk keperluan verifikasi akademik dan kelengkapan administrasi beasiswa/privilege.
+            Catatan: Identitas mahasiswa terverifikasi resmi pada basis data pendidikan tinggi. Daftar mata kuliah di atas merupakan estimasi kurikulum akademik standar program studi (Transkrip resmi ber-IPK kumulatif dikeluarkan langsung oleh BAAK / SIAKAD internal {clean_pt}).
         </div>
     </body>
     </html>
